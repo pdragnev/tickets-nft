@@ -1,0 +1,11 @@
+| src/MintTickets.sol:MintTickets contract |                 |        |        |        |         |
+|------------------------------------------|-----------------|--------|--------|--------|---------|
+| Deployment Cost                          | Deployment Size |        |        |        |         |
+| 1603717                                  | 8288            |        |        |        |         |
+| Function Name                            | min             | avg    | median | max    | # calls |
+| balanceOf                                | 656             | 656    | 656    | 656    | 1       |
+| getEventDescription                      | 1734            | 1734   | 1734   | 1734   | 1       |
+| getEventName                             | 1712            | 1712   | 1712   | 1712   | 1       |
+| getTicketNumber                          | 1646            | 1646   | 1646   | 1646   | 1       |
+| mintToken                                | 233447          | 233447 | 233447 | 233447 | 1       |
+| tokenURI                                 | 2213            | 2213   | 2213   | 2213   | 1       |
