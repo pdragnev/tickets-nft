@@ -40,13 +40,23 @@ forge build
 forge build
 ```
 
-* To deploy on testnet
+* To deploy and verify on testnet
 ```sh
 forge script script/MintTickets.s.sol:DeployTestnetScript --rpc-url goerli --broadcast --verify -vvvv
 ```
 
 * You should have added the variables ```GOERLI_RPC_URL= PRIVATE_KEY= ETHERSCAN_API_KEY= ```
 to the .env for this next part to work. Preferably only for testnet deployments
+
+* Verifying contact on Polygon after deploying
+```sh
+forge script script/MintTickets.s.sol:DeployTestnetScript --chain-id $CHAIN_ID --rpc-url $RPC_URL \
+    --etherscan-api-key $POLYGONSCAN_API_KEY --verifier-url $POLYGONSCAN
+    --broadcast --verify -vvvv
+```
+* chain-id = { polygon : 137, mumbai : 80001 }
+* verifier-url = { polygon : https://api.polygonscan.com/api, mumbai : https://api-testnet.polygonscan.com/api }
+
 
 ## Using Slither for static code checks
 ### Installation

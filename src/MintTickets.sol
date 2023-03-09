@@ -43,6 +43,18 @@ contract MintTickets is ERC721, Ownable {
     }
 
     /**
+ * @dev Sets `_TokenMetadata` as the TokenMetadata of `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function _setTokenMetadata(uint256 tokenId, TokenMetadata memory _tokenMetadata) internal {
+        _requireMinted(tokenId);
+        _tokenMetadatas[tokenId] = _tokenMetadata;
+    }
+
+    /**
      * @dev Views `_tokenURI` as the tokenURI of `tokenId`.
      *
      * Requirements:
@@ -56,45 +68,6 @@ contract MintTickets is ERC721, Ownable {
     }
 
     /**
-     * @dev Views `_eventName` as the eventName of `tokenId`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function getEventName(uint256 tokenId) public view returns (string memory) {
-        _requireMinted(tokenId);
-
-        return _tokenMetadatas[tokenId]._eventName;
-    }
-
-    /**
-     * @dev Views `_eventDescription` as the eventDescription of `tokenId`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function getEventDescription(uint256 tokenId) public view returns (string memory) {
-        _requireMinted(tokenId);
-
-        return _tokenMetadatas[tokenId]._eventDescription;
-    }
-
-    /**
-     * @dev Views `_ticketNumber` as the ticketNumber of `tokenId`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function getTicketNumber(uint256 tokenId) public view returns (string memory) {
-        _requireMinted(tokenId);
-
-        return _tokenMetadatas[tokenId]._ticketNumber;
-    }
-
-    /**
      * @dev Views `_TokenMetadata` as the TokenMetadata of `tokenId`.
      *
      * Requirements:
@@ -105,44 +78,5 @@ contract MintTickets is ERC721, Ownable {
         _requireMinted(tokenId);
 
         return _tokenMetadatas[tokenId];
-    }
-
-    /**
-     * @dev Sets `_TokenMetadata` as the TokenMetadata of `tokenId`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function _setTokenMetadata(uint256 tokenId, TokenMetadata memory _tokenMetadata) internal {
-        _requireMinted(tokenId);
-        _tokenMetadatas[tokenId] = _tokenMetadata;
-    }
-
-    /**
-     * @dev Burns tokenId and clears the storage TokenMetadata`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function burn(uint256 tokenId) public {
-        address owner = ERC721.ownerOf(tokenId);
-        require(msg.sender != owner, "ERC721: only owner can burn NFT");
-        _requireMinted(tokenId);
-        _burn(tokenId);
-    }
-
-    /**
-     * @dev See {ERC721-_burn}. This override additionally checks to see if a
-     * token-specific Metadata was set for the token, and if so, it deletes the token Metadata from
-     * the storage mapping.
-     */
-    function _burn(uint256 tokenId) internal override {
-        super._burn(tokenId);
-
-        if (bytes((_tokenMetadatas[tokenId])._tokenURI).length != 0) {
-            delete _tokenMetadatas[tokenId];
-        }
     }
 }

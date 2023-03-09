@@ -6,8 +6,11 @@ libs = ['lib']
 
 [rpc_endpoints]
 goerli = "${GOERLI_RPC_URL}"
+mumbai = "${MUMBAI_RPC_URL}"
 
 [etherscan]
 goerli = { key = "${ETHERSCAN_API_KEY}" }
+polygon = { key = "${POLYGON_ETHERSCAN_API_KEY}", url = "https://api.polygonscan.com/api" }
+mumbai = { key = "${POLYGON_ETHERSCAN_API_KEY}", url = "https://api-testnet.polygonscan.com/api/" }
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config

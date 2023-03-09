@@ -6,7 +6,7 @@ import "../src/MintTickets.sol";
 
 contract DeployTestnetScript is Script {
    function run() external {
-        uint256 deployerPrivateKeyTestNet = vm.envUint("GOERLI_PRIVATE_KEY");
+        uint256 deployerPrivateKeyTestNet = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKeyTestNet);
 
         MintTickets mintTickets = new MintTickets();

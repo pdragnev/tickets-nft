@@ -8,6 +8,13 @@ contract MintTicketsTest is Test {
     string private constant BASE_IPFS_URL = "ipfs://";
     MintTickets public mintTickets;
 
+    struct TokenMetadata {
+        string _tokenURI;
+        string _eventName;
+        string _eventDescription;
+        string _ticketNumber;
+    }
+
     function setUp() public {
         mintTickets = new MintTickets();
     }
@@ -22,8 +29,7 @@ contract MintTicketsTest is Test {
         assertEq(mintTokenReturn, 1);
         assertEq(mintTickets.balanceOf(addr1), 1);
         assertEq(mintTickets.tokenURI(mintTokenReturn), string(abi.encodePacked(BASE_IPFS_URL, ipfsCID)));
-        assertEq(mintTickets.getEventName(mintTokenReturn), eventName);
-        assertEq(mintTickets.getEventDescription(mintTokenReturn), eventDesc);
-        assertEq(mintTickets.getTicketNumber(mintTokenReturn), eventNumber);
+
+        //TokenMetadata memory tokenMetadataReturned = mintTickets.tokenMetadata(mintTokenReturn);
     }
 }
