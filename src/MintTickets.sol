@@ -8,7 +8,6 @@ import "openzeppelin-contracts/contracts/access/Ownable.sol";
 contract MintTickets is ERC721, Ownable {
     string private constant BASE_IPFS_URL = "ipfs://";
 
-    using Strings for uint256;
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIds;
@@ -43,7 +42,7 @@ contract MintTickets is ERC721, Ownable {
     }
 
     /**
- * @dev Sets `_TokenMetadata` as the TokenMetadata of `tokenId`.
+     * @dev Sets `_TokenMetadata` as the TokenMetadata of `tokenId`.
      *
      * Requirements:
      *
