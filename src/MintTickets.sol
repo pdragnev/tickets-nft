@@ -5,6 +5,15 @@ import "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
 import "openzeppelin-contracts/contracts/utils/Counters.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
+library Types {
+    struct TokenMetadata {
+        string _tokenURI;
+        string _eventName;
+        string _eventDescription;
+        string _ticketNumber;
+    }
+}
+
 contract MintTickets is ERC721, Ownable {
     string private constant BASE_IPFS_URL = "ipfs://";
 
@@ -12,14 +21,7 @@ contract MintTickets is ERC721, Ownable {
 
     Counters.Counter private _tokenIds;
 
-    struct TokenMetadata {
-        string _tokenURI;
-        string _eventName;
-        string _eventDescription;
-        string _ticketNumber;
-    }
-
-    mapping(uint256 => TokenMetadata) private _tokenMetadatas;
+    mapping(uint256 => Types.TokenMetadata) private _tokenMetadatas;
 
     constructor() ERC721("EvedoTickets", "EVDT") {}
 
@@ -33,7 +35,7 @@ contract MintTickets is ERC721, Ownable {
         _tokenIds.increment();
         uint256 id = _tokenIds.current();
         _safeMint(owner, id);
-        TokenMetadata memory metadata = TokenMetadata(
+        Types.TokenMetadata memory metadata = Types.TokenMetadata(
             string(abi.encodePacked(BASE_IPFS_URL, metadataURI)), eventName, eventDescription, ticketNumber
         );
         _setTokenMetadata(id, metadata);
@@ -48,7 +50,7 @@ contract MintTickets is ERC721, Ownable {
      *
      * - `tokenId` must exist.
      */
-    function _setTokenMetadata(uint256 tokenId, TokenMetadata memory _tokenMetadata) internal {
+    function _setTokenMetadata(uint256 tokenId, Types.TokenMetadata memory _tokenMetadata) internal {
         _requireMinted(tokenId);
         _tokenMetadatas[tokenId] = _tokenMetadata;
     }
@@ -73,9 +75,48 @@ contract MintTickets is ERC721, Ownable {
      *
      * - `tokenId` must exist.
      */
-    function tokenMetadata(uint256 tokenId) public view returns (TokenMetadata memory) {
+    function tokenMetadata(uint256 tokenId) public view returns (Types.TokenMetadata memory) {
         _requireMinted(tokenId);
 
         return _tokenMetadatas[tokenId];
+    }
+
+    /**
+     * @dev Views `_eventName` as the eventName of `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function tokenEventName(uint256 tokenId) public view returns (string memory) {
+        _requireMinted(tokenId);
+
+        return _tokenMetadatas[tokenId]._eventName;
+    }
+
+    /**
+     * @dev Views `_eventDescription` as the eventDescription of `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function tokenEventDescription(uint256 tokenId) public view returns (string memory) {
+        _requireMinted(tokenId);
+
+        return _tokenMetadatas[tokenId]._eventDescription;
+    }
+
+    /**
+     * @dev Views `_ticketNumber` as the ticketNumber of `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function tokenTicketNumber(uint256 tokenId) public view returns (string memory) {
+        _requireMinted(tokenId);
+
+        return _tokenMetadatas[tokenId]._ticketNumber;
     }
 }
