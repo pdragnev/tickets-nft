@@ -15,7 +15,7 @@ library Types {
 }
 
 contract MintTickets is ERC721, Ownable {
-    string private constant BASE_IPFS_URL = "ipfs://";
+    string private constant BASE_IPFS_URL = "https://ipfs.io/ipfs/";
 
     using Counters for Counters.Counter;
 

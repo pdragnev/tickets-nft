@@ -40,7 +40,7 @@ forge build
 forge build
 ```
 
-* To deploy and verify on testnet
+* To deploy and verify on goerli testnet
 ```sh
 forge script script/MintTickets.s.sol:DeployTestnetScript --rpc-url goerli --broadcast --verify -vvvv
 ```
